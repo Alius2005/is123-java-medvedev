@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:firebirdsql://localhost:3050/./cinema.fdb
+    username: sysdba
+    password: masterkey
+    driver-class-name: org.firebirdsql.jdbc.FBDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+app:
+  db-type: firebird   # firebird | json | memory
