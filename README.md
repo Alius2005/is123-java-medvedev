@@ -97,72 +97,13 @@ graph LR
 
 ---  
 
-## 6️⃣ Структура репозитория  
+## 6️⃣ Подготовка окружения  
 
-```
-CinemaHome/
-├─ src/
-│  ├─ main/
-│  │  ├─ java/
-│  │  │  └─ kinoteka/
-│  │  │     ├─ config/
-│  │  │     │  ├─ WebSecurityConfig.java
-│  │  │     │  └─ DataSourceConfig.java
-│  │  │     ├─ controller/
-│  │  │     │  ├─ UserController.java
-│  │  │     │  └─ MovieController.java
-│  │  │     ├─ service/
-│  │  │     │  ├─ UserService.java
-│  │  │     │  └─ MovieService.java
-│  │  │     ├─ repository/
-│  │  │     │  ├─ UserRepository.java        // JPA
-│  │  │     │  ├─ MovieRepository.java       // JPA
-│  │  │     │  └─ InMemoryRepository.java    // JSON‑реализация
-│  │  │     ├─ model/
-│  │  │     │  ├─ User.java
-│  │  │     │  ├─ Movie.java
-│  │  │     │  ├─ Actor.java
-│  │  │     │  ├─ Genre.java
-│  │  │     │  └─ dto/
-│  │  │     │        ├─ UserDto.java
-│  │  │     │        └─ MovieDto.java
-│  │  │     ├─ pattern/
-│  │  │     │  ├─ RepositoryFactory.java
-│  │  │     │  ├─ PricingStrategy.java
-│  │  │     │  ├─ BasePricingStrategy.java
-│  │  │     │  ├─ DiscountPricingStrategy.java
-│  │  │     │  ├─ PremiumPricingStrategy.java
-│  │  │     │  ├─ ReleaseNotifier.java
-│  │  │     │  ├─ EmailNotifier.java
-│  │  │     │  ├─ SmsNotifier.java
-│  │  │     │  └─ InAppNotifier.java
-│  │  │     └─ util/
-│  │  │         ├─ JsonUtil.java
-│  │  │         └─ DateUtil.java
-│  │  └─ resources/
-│  │     ├─ application.yml
-│  │     ├─ static/
-│  │     │  └─ index.html
-│  │     └─ templates/
-│  │        └─ home.html
-│  └─ test/
-│     └─ java/kinoteka/
-│        ├─ controller/
-│        ├─ service/
-│        └─ repository/
-├─ build.gradle
-└─ README.md
-```
-
----  
-
-## 7️⃣ Подготовка окружения  
-
-### 7.1 Требования  
+### 6.1 Требования  
 
 | Требование | Версия/описание |
 |-----------|-----------------|
-| Java | JDK 17 (или выше) |
+| Java | JDK 21 (или выше) |
 | Gradle | 8.x (wrapper уже включён) |
 | Firebird | 3.0+ (опционально) |
 | Git | Любой |
