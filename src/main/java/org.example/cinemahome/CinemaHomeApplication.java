@@ -1,0 +1,11 @@
+package org.example.cinemahome;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CinemaHomeApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(CinemaHomeApplication.class, args);
+    }
+}
