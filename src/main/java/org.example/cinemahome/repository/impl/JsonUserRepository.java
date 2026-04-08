@@ -2,14 +2,16 @@ package org.example.cinemahome.repository.impl;
 
 import org.example.cinemahome.dto.UserDto;
 import org.example.cinemahome.repository.UserRepository;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
-// 👇 Make sure you're implementing UserRepository!
+import java.util.ArrayList;
+import java.util.List;
+@Repository
+@Primary
 public class JsonUserRepository implements UserRepository {
 
-    private List<UserDto> users = new ArrayList<>(); // In-memory storage (for now)
+    private List<UserDto> users = new ArrayList<>();
 
     @Override
     public List<UserDto> findAll() {
@@ -18,6 +20,6 @@ public class JsonUserRepository implements UserRepository {
 
     @Override
     public void save(UserDto user) {
-        users.add(user); // 👈 Your JSON logic will go here later — for now, just store in memory
+        users.add(user);
     }
 }

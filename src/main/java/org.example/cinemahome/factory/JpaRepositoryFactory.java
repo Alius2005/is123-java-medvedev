@@ -9,9 +9,9 @@ import org.example.cinemahome.repository.impl.JsonGenreRepository;
 import org.example.cinemahome.repository.impl.JsonMovieRepository;
 import org.example.cinemahome.repository.impl.JsonUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-@Component
+@Qualifier("jpaRepositoryFactory")
 public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Autowired

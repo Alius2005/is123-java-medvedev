@@ -1,23 +1,21 @@
 package org.example.cinemahome.repository.impl;
 
-import org.example.cinemahome.repository.MovieRepository;
-import org.example.cinemahome.dto.MovieDto;
-import org.example.cinemahome.config.ApplicationProperties;
-import org.example.cinemahome.util.JsonDataLoader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.example.cinemahome.config.ApplicationProperties;
+import org.example.cinemahome.dto.MovieDto;
+import org.example.cinemahome.repository.MovieRepository;
+import org.example.cinemahome.util.JsonDataLoader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @Repository
+@Primary
 public class JsonMovieRepository implements MovieRepository {
 
     @Autowired

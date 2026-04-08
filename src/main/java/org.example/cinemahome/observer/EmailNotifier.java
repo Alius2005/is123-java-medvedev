@@ -1,8 +1,10 @@
 package org.example.cinemahome.observer;
 
 import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Primary;
 
 @Component
+@Primary
 public class EmailNotifier implements ReleaseNotifier {
     @Override
     public void sendNotification() {
