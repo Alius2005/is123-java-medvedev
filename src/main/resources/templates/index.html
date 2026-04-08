@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CinemaHome — Your Mood, Your Movie</title>
+</head>
+<body>
+<h1>Today’s Pick:</h1>
+<p th:text="${movie.title}">Loading...</p>
+<p th:text="'Mood: ' + ${movie.moodTag}">No mood, no movie.</p>
+</body>
+</html>

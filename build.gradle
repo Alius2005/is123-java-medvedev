@@ -27,12 +27,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'org.firebirdsql.jdbc:jaybird:3.0.10'
-    runtimeOnly 'org.flywaydb:flyway-core'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mockito:mockito-core:5.+'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
-    implementation files('lib/reddatabase-jdbc-5.0.jar')
+
+    //    runtimeOnly 'org.flywaydb:flyway-core'
+    //    implementation files('lib/reddatabase-jdbc-5.0.jar')
 
 }
 
