@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Актёры — CinemaHome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Актёры</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/movies">Фильмы</a>
+            <a href="/genres">Жанры</a>
+        </nav>
+    </header>
+    <main>
+        <ul>
+            <li th:each="a : ${actors}" th:text="${a.firstName + ' ' + a.lastName}">Актёр</li>
+        </ul>
+    </main>
+</div>
+</body>
+</html>

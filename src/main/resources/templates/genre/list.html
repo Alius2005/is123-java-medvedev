@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Жанры — CinemaHome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Жанры</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/movies">Фильмы</a>
+            <a href="/actors">Актёры</a>
+        </nav>
+    </header>
+    <main>
+        <ul>
+            <li th:each="g : ${genres}" th:text="${g.name}">Жанр</li>
+        </ul>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${movie.title}">Фильм</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 th:text="${movie.title}">Название</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/movies">К списку</a>
+        </nav>
+    </header>
+    <main class="detail">
+        <img src="https://picsum.photos/seed/${movie.id}/400/600" alt="Постер" class="poster">
+        <div class="info">
+            <p class="mood" th:text="'Настроение: ' + ${movie.moodTag}" th:classappend="${movie.moodTag}">Настроение</p>
+            <p th:text="${movie.description}">Описание</p>
+            <div class="tags">
+                <span th:each="gid : ${movie.genreIds}">Жанр</span>
+                <span th:each="aid : ${movie.actorIds}">Актёр</span>
+            </div>
+            <button class="btn-primary">▶ Смотреть</button>
+        </div>
+    </main>
+</div>
+</body>
+</html>

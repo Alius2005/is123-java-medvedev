@@ -1,5 +1,21 @@
-<form method="post">
-    <input name="username" placeholder="admin" />
-    <input name="password" type="password" placeholder="admin" />
-    <button type="submit">Enter the Matrix</button>
-</form>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход — CinemaHome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container narrow">
+    <header><h1>Вход</h1></header>
+    <form th:action="@{/login}" method="post" class="form-card">
+        <input name="username" placeholder="Имя пользователя" required>
+        <input name="password" type="password" placeholder="Пароль" required>
+        <button type="submit" class="btn-primary">Войти</button>
+        <p style="text-align:center; margin-top:1rem;">
+            Нет аккаунта? <a href="/register">Зарегистрироваться</a>
+        </p>
+    </form>
+</div>
+</body>
+</html>

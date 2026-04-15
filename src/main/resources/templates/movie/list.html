@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильмы — CinemaHome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Все фильмы</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/genres">Жанры</a>
+            <a href="/actors">Актёры</a>
+        </nav>
+    </header>
+    <main class="grid">
+        <div class="movie-card" th:each="m : ${movies}">
+            <img src="https://picsum.photos/seed/${m.id}/300/450" alt="Постер">
+            <h3 th:text="${m.title}">Название</h3>
+            <p class="mood" th:text="${m.moodTag}" th:classappend="${m.moodTag}">Настроение</p>
+            <a th:href="@{/movies/{id}(id=${m.id})}" class="btn-small">Подробнее</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

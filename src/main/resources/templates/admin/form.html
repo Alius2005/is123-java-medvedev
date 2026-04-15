@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ — Добавить фильм</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container narrow">
+    <header>
+        <h1>Панель админа</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/movies">Фильмы</a>
+        </nav>
+    </header>
+    <main>
+        <form th:action="@{/admin/movies}" method="post" class="form-card">
+            <h2>Добавить фильм</h2>
+            <input name="title" placeholder="Название" required>
+            <textarea name="description" placeholder="Описание" rows="4"></textarea>
+            <input name="moodTag" placeholder="Настроение (Romantic, Calm…)" required>
+            <button type="submit" class="btn-primary">Сохранить</button>
+        </form>
+        <h3>Текущие фильмы</h3>
+        <ul>
+            <li th:each="m : ${movies}" th:text="${m.title}">Фильм</li>
+        </ul>
+    </main>
+</div>
+</body>
+</html>

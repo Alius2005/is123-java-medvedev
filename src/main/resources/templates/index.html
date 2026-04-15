@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>CinemaHome</title>
+    <meta charset="UTF-8">
+    <title>CinemaHome — Сегодня в прокате</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Today’s pick</h1>
-<p th:text="${movie.title} ?: 'No movie'">Loading…</p>
-<p th:text="'Mood: ' + ${movie.moodTag}">No mood</p>
+<div class="container">
+    <header>
+        <h1>CinemaHome</h1>
+        <nav>
+            <a href="/movies">Фильмы</a>
+            <a href="/genres">Жанры</a>
+            <a href="/actors">Актёры</a>
+            <a href="/login" class="btn-login">Войти</a>
+        </nav>
+    </header>
+    <main class="hero">
+        <div class="pick-card" th:if="${movie}">
+            <img src="https://picsum.photos/seed/movie/400/600" alt="Постер" class="poster">
+            <div class="info">
+                <h2 th:text="${movie.title}">Название</h2>
+                <p class="mood" th:text="'Настроение: ' + ${movie.moodTag}" th:classappend="${movie.moodTag}">Настроение</p>
+                <p class="desc" th:text="${movie.description}">Описание</p>
+                <a th:href="@{/movies/{id}(id=${movie.id})}" class="btn-primary">Смотреть</a>
+            </div>
+        </div>
+        <div class="empty" th:unless="${movie}">
+            <h2>Фильмов пока нет</h2>
+            <p>Зайдите в <a href="/admin/movies">панель админа</a> и добавьте что-нибудь!</p>
+        </div>
+    </main>
+</div>
 </body>
 </html>
