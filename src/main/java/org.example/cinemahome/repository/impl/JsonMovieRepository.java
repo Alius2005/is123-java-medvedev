@@ -32,9 +32,9 @@ public class JsonMovieRepository implements MovieRepository {
     @Override
     public MovieDto findById(String id) {
         return findAll().stream()
-                .filter(m -> m.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+                        .filter(m -> m.getId().equals(id))
+                        .findFirst()
+                        .orElse(null);
     }
 
     @Override

@@ -19,6 +19,10 @@ public class CurationService {
 
     public MovieDto recommendForToday() {
         List<MovieDto> movies = movieRepository.findAll();
+        if (movies.isEmpty()) {
+            // Пустой каталог — возвращаем «заглушку» или бросаем своё исключение
+            return new MovieDto("No movies yet", "Add something to the catalog", "Bored");
+        }
         MovieDto movie = movies.get(new Random().nextInt(movies.size()));
         movie.setMoodTag(moodAnalyzer.analyzeMood());
         return movie;
@@ -28,3 +32,4 @@ public class CurationService {
         return recommendForToday();
     }
 }
+
