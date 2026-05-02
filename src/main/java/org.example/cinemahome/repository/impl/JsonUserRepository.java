@@ -4,6 +4,8 @@ import org.example.cinemahome.dto.UserDto;
 import org.example.cinemahome.repository.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+import java.util.Optional;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,4 +24,14 @@ public class JsonUserRepository implements UserRepository {
     public void save(UserDto user) {
         users.add(user);
     }
+
+    public Optional<UserDto> findByUsername(String username) {
+        return users.stream()
+                .filter(u -> u.getUsername().equalsIgnoreCase(username))
+                .findFirst();
+    }
+
+
+
+
 }

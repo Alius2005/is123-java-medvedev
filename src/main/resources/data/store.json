@@ -1,5 +1,14 @@
 {
-  "movies": [],
+  "movies": [
+    {
+      "id": "1",
+      "title": "Blade Runner 2049",
+      "description": "Киберпанк и смысл жизни в одном флаконе.",
+      "moodTag": "Existential",
+      "genreIds": [],
+      "actorIds": []
+    }
+  ],
   "genres": [],
   "actors": [],
   "users": []
