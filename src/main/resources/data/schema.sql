@@ -93,7 +93,7 @@ CREATE TABLE Users(
     Username VARCHAR(100) UNIQUE NOT NULL,
     RoleName VARCHAR(50) NOT NULL CHECK (RoleName IN ('admin', 'moderator', 'user')),
     PasswordHash VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) -- Добавлено поле Email
+    Email VARCHAR(255)
 );
 
 -- 11. Таблица истории просмотров пользователей (для фильмов)

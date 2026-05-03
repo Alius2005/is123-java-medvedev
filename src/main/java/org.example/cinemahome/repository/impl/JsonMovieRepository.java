@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 @Repository
 @Primary
 public class JsonMovieRepository implements MovieRepository {
@@ -22,7 +23,7 @@ public class JsonMovieRepository implements MovieRepository {
     private ApplicationProperties properties;
 
     @Autowired
-    private ObjectMapper mapper; // Spring уже предоставляет ObjectMapper
+    private ObjectMapper mapper;
 
     @Override
     public List<MovieDto> findAll() {
@@ -68,4 +69,68 @@ public class JsonMovieRepository implements MovieRepository {
             throw new RuntimeException("Failed to save movie to JSON", e);
         }
     }
+
+    @Override
+    public void update(MovieDto updatedMovie) {
+        try {
+            File file = new File(properties.getDataPath());
+            if (!file.exists()) {
+                return;
+            }
+
+            List<MovieDto> movies = findAll();
+            boolean found = false;
+            for (int i = 0; i < movies.size(); i++) {
+                if (movies.get(i).getId().equals(updatedMovie.getId())) {
+                    movies.set(i, updatedMovie);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                throw new RuntimeException("Movie with id " + updatedMovie.getId() + " not found");
+            }
+
+            // Rewrite the file
+            ObjectNode root = mapper.createObjectNode();
+            ArrayNode moviesArray = mapper.valueToTree(movies);
+            root.set("movies", moviesArray);
+            root.putArray("genres");
+            root.putArray("actors");
+            root.putArray("users");
+
+            mapper.writeValue(file, root);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to update movie in JSON", e);
+        }
+    }
+
+
+    @Override
+    public void delete(String id) {
+        try {
+            File file = new File(properties.getDataPath());
+            if (!file.exists()) {
+                return;
+            }
+
+            List<MovieDto> movies = findAll();
+            movies.removeIf(movie -> movie.getId().equals(id));
+
+            ObjectNode root = mapper.createObjectNode();
+            ArrayNode moviesArray = mapper.valueToTree(movies);
+            root.set("movies", moviesArray);
+            root.putArray("genres");
+            root.putArray("actors");
+            root.putArray("users");
+
+            mapper.writeValue(file, root);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete movie from JSON", e);
+        }
+    }
+
 }

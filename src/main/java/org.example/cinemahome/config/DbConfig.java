@@ -12,7 +12,7 @@ public class DbConfig {
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.firebirdsql.jdbc.FBDriver");
-        ds.setUrl("jdbc:firebirdsql://localhost:3050//db/cinema.fdb");
+        ds.setUrl("jdbc:firebirdsql://localhost:3050//home/student/fb-data/cinema.fdb");
         ds.setUsername("SYSDBA");
         ds.setPassword("masterkey");
         return ds;

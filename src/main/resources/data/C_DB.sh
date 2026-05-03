@@ -7,7 +7,7 @@ HOST_DATA_DIR="${HOME}/fb-data"
 CONTAINER_NAME="tmp-fb-$(date +%s)"
 FB_USER="SYSDBA"
 FB_PASSWORD="masterkey"
-DB_NAME="test_db.fdb"
+DB_NAME="cinema.fdb"
 DB_PATH="/firebird/data/${DB_NAME}"
 HOST_PORT=3051               # любой свободный порт на хосте
 FB_PORT=3050                 # внутри контейнера
@@ -97,16 +97,15 @@ EOF
 
 # ----------------------- 6️Остановка и удаление ------------------------
 echo " Останавливаем и удаляем контейнер…"
-docker stop "${CONTAINER_NAME}" >/dev/null
-docker rm "${CONTAINER_NAME}" >/dev/null
+#docker stop "${CONTAINER_NAME}" >/dev/null
+#docker rm "${CONTAINER_NAME}" >/dev/null
 
 # -------------------------- 7️Финальный вывод -------------------------
-echo
 echo "Всё готово! Файлы базы находятся в:"
 echo "${HOST_DATA_DIR}/${DB_NAME}"
 echo "Для проверки создания таблицы нужно использовать:"
 echo "docker exec -it "${CONTAINER_NAME}" bash"
-echo "/usr/local/firebird/bin/isql -user SYSDBA -password masterkey /firebird/data/test_db.fdb"
+echo "/usr/local/firebird/bin/isql -user SYSDBA -password masterkey /firebird/data/cinema.fdb"
 echo "SHOW TABLES"
 echo "или"
 echo "SELECT RDB\$RELATION_NAME FROM RDB\$RELATIONS WHERE RDB\$SYSTEM_FLAG = 0;"
