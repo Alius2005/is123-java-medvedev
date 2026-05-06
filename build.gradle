@@ -6,8 +6,7 @@ plugins {
 }
 
 application {
-//    mainClass = 'kinoteka.TestRedDatabase'
-    mainClass = 'kinoteka.CinemaHomeApplication'
+    mainClass = 'org.example.cinemahome'
 
 }
 
@@ -51,4 +50,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+
+bootJar {
+    mainClass = 'org.example.cinemahome.CinemaHomeApplication'
 }

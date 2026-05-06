@@ -96,7 +96,7 @@ $(cat "${SCHEMA_FILE}")
 EOF
 
 # ----------------------- 6️Остановка и удаление ------------------------
-echo " Останавливаем и удаляем контейнер…"
+#echo " Останавливаем и удаляем контейнер…"
 #docker stop "${CONTAINER_NAME}" >/dev/null
 #docker rm "${CONTAINER_NAME}" >/dev/null
 
