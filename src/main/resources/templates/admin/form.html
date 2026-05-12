@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Админ — Добавить фильм</title>
@@ -14,18 +15,30 @@
             <a href="/movies">Фильмы</a>
         </nav>
     </header>
+
     <main>
-        <form th:action="@{/admin/movies}" method="post" class="form-card">
+        <div sec:authorize="hasRole('MODERATOR') or hasRole('ADMIN')">
             <h2>Добавить фильм</h2>
-            <input name="title" placeholder="Название" required>
-            <textarea name="description" placeholder="Описание" rows="4"></textarea>
-            <input name="moodTag" placeholder="Настроение (Romantic, Calm…)" required>
-            <button type="submit" class="btn-primary">Сохранить</button>
-        </form>
+            <form th:action="@{/admin/movies}" method="post" class="form-card">
+                <input name="title" placeholder="Название" required>
+                <textarea name="description" placeholder="Описание" rows="4"></textarea>
+                <input name="moodTag" placeholder="Настроение (Romantic, Calm…)" required>
+                <button type="submit" class="btn-primary">Сохранить</button>
+            </form>
+        </div>
+
         <h3>Текущие фильмы</h3>
         <ul>
             <li th:each="m : ${movies}" th:text="${m.title}">Фильм</li>
         </ul>
+
+        <div sec:authorize="isAnonymous() or hasRole('USER')">
+            <p style="color: #d32f2f; margin-top: 2rem;">
+                ⚠️ Вы не имеете доступа к панели управления.
+                <a href="/login">Войдите как модератор или админ</a>.
+            </p>
+        </div>
+
     </main>
 </div>
 </body>

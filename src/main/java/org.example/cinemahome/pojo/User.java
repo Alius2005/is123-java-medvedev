@@ -39,21 +39,25 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-    public String  getUsername() {
+    public String getUsername() {
         return username;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
-    public String  getPassword() {
+    public String getPassword() {
         return password;
     }
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-    public String  getRoleName() {
+    public String getRoleName() {
         return roleName;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt =createdAt;
     }
 }
