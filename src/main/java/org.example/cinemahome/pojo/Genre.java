@@ -1,8 +1,20 @@
 package org.example.cinemahome.pojo;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "GENRE")
 public class Genre {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @Column(name = "description", columnDefinition = "BLOB")
     private String description;
 
     public Genre() {}

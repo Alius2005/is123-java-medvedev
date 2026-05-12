@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class MovieController {
-    @Autowired
-    private MovieService movieService;
+
+    @Autowired private MovieService movieService;
 
     @GetMapping("/movies")
     public String listMovies(Model model) {
@@ -21,8 +21,16 @@ public class MovieController {
 
     @GetMapping("/movies/{id}")
     public String getMovie(@PathVariable String id, Model model) {
-        MovieDto movie = movieService.getMovieById(id);
-        model.addAttribute("movie", movie);
-        return "movie/detail";
+        try {
+            Long movieId = Long.parseLong(id);
+            MovieDto movie = movieService.getMovieById(movieId);
+            if (movie == null) {
+                return "error/404";
+            }
+            model.addAttribute("movie", movie);
+            return "movie/detail";
+        } catch (NumberFormatException e) {
+            return "error/404";
+        }
     }
 }

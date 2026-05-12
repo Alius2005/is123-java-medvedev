@@ -25,7 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
-    implementation 'org.firebirdsql.jdbc:jaybird:3.0.10'
+    implementation 'org.firebirdsql.jdbc:jaybird:5.0.11.java11'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mockito:mockito-core:5.+'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -33,19 +33,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
     implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.hibernate:hibernate-core:6.6.2.Final'
     implementation 'org.hibernate:hibernate-community-dialects:6.6.2.Final'
-
-
-
-
-    //    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    //    runtimeOnly 'org.flywaydb:flyway-core'
-    //    implementation files('lib/reddatabase-jdbc-5.0.jar')
-
 }
 
 test {

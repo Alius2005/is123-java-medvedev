@@ -1,40 +1,36 @@
 package org.example.cinemahome.pojo;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "EPISODE")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Episode {
-    private int id;
-    private String seasonId;
-    private String title;
-    private Integer duration;
-    private String filePath;
-    private Boolean isWatched;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "episode_number", nullable = false)
     private Integer episodeNumber;
 
-    public Episode() {}
+    @Column(name = "title")
+    private String title;
 
-    public Episode(String seasonId, Integer episodeNumber) {
-        this.seasonId = seasonId;
-        this.episodeNumber = episodeNumber;
-    }
+    @Column(name = "duration")
+    private Integer duration;
 
-    // Геттеры и сеттеры
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    @Column(name = "file_path")
+    private String filePath;
 
-    public String getSeasonId() { return seasonId; }
-    public void setSeasonId(String seasonId) { this.seasonId = seasonId; }
+    @Column(name = "is_watched")
+    private Boolean isWatched;
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public Integer getDuration() { return duration; }
-    public void setDuration(Integer duration) { this.duration = duration; }
-
-    public String getFilePath() { return filePath; }
-    public void setFilePath(String filePath) { this.filePath = filePath; }
-
-    public Boolean getIsWatched() { return isWatched; }
-    public void setIsWatched(Boolean isWatched) { this.isWatched = isWatched; }
-
-    public Integer getEpisodeNumber() { return episodeNumber; }
-    public void setEpisodeNumber(Integer episodeNumber) { this.episodeNumber = episodeNumber; }
+    @ManyToOne
+    @JoinColumn(name = "season_id", nullable = false)
+    private Season season;
 }

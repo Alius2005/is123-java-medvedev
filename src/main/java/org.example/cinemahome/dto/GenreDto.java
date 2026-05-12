@@ -5,7 +5,14 @@ public class GenreDto {
     private String name;
     private String description;
 
-    // Геттеры и сеттеры
+    public GenreDto() {}
+
+    public GenreDto(Long id, String name, String description) {
+        this.id =id;
+        this.name = name;
+        this.description = description;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -14,11 +21,4 @@ public class GenreDto {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-
-    public GenreDto() {}
-
-    public GenreDto(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
 }

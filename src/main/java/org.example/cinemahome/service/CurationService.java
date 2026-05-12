@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class CurationService {
+
     @Autowired
     private MovieRepository movieRepository;
 
@@ -18,18 +20,25 @@ public class CurationService {
     private MoodAnalyzer moodAnalyzer;
 
     public MovieDto recommendForToday() {
-        List<MovieDto> movies = movieRepository.findAll();
+        List<MovieDto> movies = movieRepository.findAll().stream()
+                .map(movie -> new MovieDto(
+                        movie.getId(),
+                        movie.getTitle(),
+                        movie.getDescription(),
+                        moodAnalyzer.analyzeMood(),
+                        movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList()),
+                        movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
+                ))
+                .collect(Collectors.toList());
+
         if (movies.isEmpty()) {
-            // Пустой каталог — возвращаем «заглушку» или бросаем своё исключение
-            return new MovieDto("No movies yet", "Add something to the catalog", "Bored");
+            return new MovieDto(null, "No movies yet", "Add something to the catalog", "Bored", List.of(), List.of());
         }
-        MovieDto movie = movies.get(new Random().nextInt(movies.size()));
-        movie.setMoodTag(moodAnalyzer.analyzeMood());
-        return movie;
+
+        return movies.get(new Random().nextInt(movies.size()));
     }
 
     public MovieDto recommendForUser() {
         return recommendForToday();
     }
 }
-

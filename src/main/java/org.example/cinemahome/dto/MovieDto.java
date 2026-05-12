@@ -6,11 +6,21 @@ public class MovieDto {
     private Long id;
     private String title;
     private String description;
-    private String moodTag;
+    private String moodTag; // ← вычисляется в сервисе, не хранится в БД
     private List<Long> genreIds;
     private List<Long> actorIds;
 
-    // Геттеры и сеттеры
+    public MovieDto() {}
+
+    public MovieDto(Long id, String title, String description, String moodTag, List<Long> genreIds, List<Long> actorIds) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.moodTag = moodTag;
+        this.genreIds = genreIds;
+        this.actorIds = actorIds;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -28,12 +38,4 @@ public class MovieDto {
 
     public List<Long> getActorIds() { return actorIds; }
     public void setActorIds(List<Long> actorIds) { this.actorIds = actorIds; }
-
-    public MovieDto() {}
-
-    public MovieDto(String title, String description, String moodTag) {
-        this.title = title;
-        this.description = description;
-        this.moodTag = moodTag;
-    }
 }

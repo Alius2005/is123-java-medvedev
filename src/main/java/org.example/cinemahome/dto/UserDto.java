@@ -8,7 +8,14 @@ public class UserDto {
     private String password;
     private LocalDateTime createdAt;
 
-    // Геттеры и сеттеры
+    public UserDto() {}
+
+    public UserDto(Long id, String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -20,12 +27,4 @@ public class UserDto {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public UserDto() {}
-
-    public UserDto(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.createdAt = LocalDateTime.now();
-    }
 }

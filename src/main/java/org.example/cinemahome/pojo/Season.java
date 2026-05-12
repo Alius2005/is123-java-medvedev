@@ -1,56 +1,54 @@
 package org.example.cinemahome.pojo;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "SEASONS")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Season {
-    private int id;
-    private String seriesId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "season_number", nullable = false)
     private Integer seasonNumber;
+
+    @Column(name = "episodes_count")
     private Integer episodesCount;
+
+    @Column(name = "status")
     private String status;
+
+    @Column(name = "file_path")
     private String filePath;
+
+    @Column(name = "duration")
     private Integer duration;
+
+    @Column(name = "release_year")
     private Integer releaseYear;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "is_watched")
     private Boolean isWatched;
-    private Long directorId;
 
-    public Season() {}
+    @ManyToOne
+    @JoinColumn(name = "director_id")
+    private Director director;
 
-    public Season(String seriesId, Integer seasonNumber) {
-        this.seriesId = seriesId;
-        this.seasonNumber = seasonNumber;
-    }
+    @ManyToOne
+    @JoinColumn(name = "series_id", nullable = false)
+    private Series series;
 
-    // Геттеры и сеттеры
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getSeriesId() { return seriesId; }
-    public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
-
-    public Integer getSeasonNumber() { return seasonNumber; }
-    public void setSeasonNumber(Integer seasonNumber) { this.seasonNumber = seasonNumber; }
-
-    public Integer getEpisodesCount() { return episodesCount; }
-    public void setEpisodesCount(Integer episodesCount) { this.episodesCount = episodesCount; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public String getFilePath() { return filePath; }
-    public void setFilePath(String filePath) { this.filePath = filePath; }
-
-    public Integer getDuration() { return duration; }
-    public void setDuration(Integer duration) { this.duration = duration; }
-
-    public Integer getReleaseYear() { return releaseYear; }
-    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public Boolean getIsWatched() { return isWatched; }
-    public void setIsWatched(Boolean isWatched) { this.isWatched = isWatched; }
-
-    public Long getDirectorId() { return directorId; }
-    public void setDirectorId(Long directorId) { this.directorId = directorId; }
+    @OneToMany(mappedBy = "season", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Episode> episodes;
 }

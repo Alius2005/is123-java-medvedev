@@ -1,33 +1,75 @@
 package org.example.cinemahome.pojo;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
+@Entity
+@Table(name = "MOVIES")
+@Data
+@AllArgsConstructor
 public class Movie {
-    private String id;
-    private String title;
-    private String description;
-    private String filePath;
-    private String coverPath;
-    private Integer releaseYear;
-    private String status;
-    private Integer duration;
-    private Boolean isWatched;
-    private Long directorId;
-    private List<Long> genreIds;
-    private List<Long> actorIds;
 
-    // Конструкторы, геттеры и сеттеры
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "description", columnDefinition = "BLOB")
+    private String description;
+
+    @Column(name = "file_path")
+    private String filePath;
+
+    @Column(name = "cover_path")
+    private String coverPath;
+
+    @Column(name = "release_year")
+    private Integer releaseYear;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "duration")
+    private Integer duration;
+
+    @Column(name = "is_watched")
+    private Boolean isWatched;
+
+    @ManyToOne
+    @JoinColumn(name = "director_id")
+    private Director director;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<Genre> genres;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_actor",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    private List<Actor> actors;
+
     public Movie() {}
 
-    public Movie(String title, String description, String filePath) {
+    public Movie(String title, String description) {
         this.title = title;
         this.description = description;
-        this.filePath = filePath;
     }
 
-    // Геттеры и сеттеры
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -53,12 +95,12 @@ public class Movie {
     public Boolean getIsWatched() { return isWatched; }
     public void setIsWatched(Boolean isWatched) { this.isWatched = isWatched; }
 
-    public Long getDirectorId() { return directorId; }
-    public void setDirectorId(Long directorId) { this.directorId = directorId; }
+    public Director getDirector() { return director; }
+    public void setDirector(Director director) { this.director = director; }
 
-    public List<Long> getGenreIds() { return genreIds; }
-    public void setGenreIds(List<Long> genreIds) { this.genreIds = genreIds; }
+    public List<Genre> getGenres() { return genres; }
+    public void setGenres(List<Genre> genres) { this.genres = genres; }
 
-    public List<Long> getActorIds() { return actorIds; }
-    public void setActorIds(List<Long> actorIds) { this.actorIds = actorIds; }
+    public List<Actor> getActors() { return actors; }
+    public void setActors(List<Actor> actors) { this.actors = actors; }
 }

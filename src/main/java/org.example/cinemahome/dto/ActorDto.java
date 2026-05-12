@@ -6,7 +6,15 @@ public class ActorDto {
     private String lastName;
     private String bio;
 
-    // Геттеры и сеттеры
+    public ActorDto() {}
+
+    public ActorDto (Long id,String firstName,String lastName,String bio) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.bio =bio;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -18,11 +26,4 @@ public class ActorDto {
 
     public String getBio() { return bio; }
     public void setBio(String bio) { this.bio = bio; }
-
-    public ActorDto() {}
-
-    public ActorDto(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 }

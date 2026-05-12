@@ -1,18 +1,18 @@
 package org.example.cinemahome.service;
 
 import org.example.cinemahome.observer.ReleaseNotifier;
-import org.example.cinemahome.observer.EmailNotifier;
-import org.example.cinemahome.observer.InAppNotifier;
-import org.example.cinemahome.observer.MoodNotifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReleaseNotifierService {
+
     @Autowired
-    private ReleaseNotifier notifier;
+    private List<ReleaseNotifier> notifiers;
 
     public void notifyAboutRelease() {
-        notifier.notify();
+        notifiers.forEach(ReleaseNotifier::sendNotification);
     }
 }
