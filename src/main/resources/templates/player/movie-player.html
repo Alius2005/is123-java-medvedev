@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Смотрим: ' + ${movie.title}">Плеер</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 th:text="${movie.title}">Фильм</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/movies">К списку фильмов</a>
+            <a th:href="@{/movies/{id}(id=${movie.id})}">К описанию</a>
+        </nav>
+    </header>
+    <main>
+        <p th:text="'Путь к файлу: ' + ${movie.filePath}"></p>
+        <video width="800" controls>
+            <source th:src="@{'/media/' + ${movie.filePath}}" type="video/mp4">
+            Ваш браузер не поддерживает воспроизведение видео.
+        </video>
+    </main>
+</div>
+</body>
+</html>

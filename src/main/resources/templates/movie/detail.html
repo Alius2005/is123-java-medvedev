@@ -23,8 +23,7 @@
                 <span th:each="gid : ${movie.genreIds}">Жанр</span>
                 <span th:each="aid : ${movie.actorIds}">Актёр</span>
             </div>
-            <button class="btn-primary">▶ Смотреть</button>
-        </div>
+            <a th:href="@{/player/movie/{id}(id=${movie.id})}" class="btn-primary">▶ Смотреть</a>        </div>
     </main>
 </div>
 </body>

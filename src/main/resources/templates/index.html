@@ -25,7 +25,7 @@
                 <h2 th:text="${movie.title}">Название</h2>
                 <p class="mood" th:text="'Настроение: ' + ${movie.moodTag}" th:classappend="${movie.moodTag}">Настроение</p>
                 <p class="desc" th:text="${movie.description}">Описание</p>
-                <a th:href="@{/movies/{id}(id=${movie.id})}" class="btn-primary">Смотреть</a>
+                <a th:href="@{/player/movie/{id}(id=${movie.id})}" class="btn-primary">Смотреть</a>
             </div>
         </div>
         <div class="empty" th:unless="${movie}">

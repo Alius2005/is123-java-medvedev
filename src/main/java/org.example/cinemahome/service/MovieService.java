@@ -20,29 +20,40 @@ public class MovieService {
 
     public List<MovieDto> getAllMovies() {
         return movieRepository.findAll().stream()
-                .map(movie -> new MovieDto(
-                        movie.getId(),
-                        movie.getTitle(),
-                        movie.getDescription(),
-                        null,
-                        movie.getFilePath(),
-                        movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList()),
-                        movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
-                ))
+                .map(movie -> {
+                    MovieDto dto = new MovieDto();
+                    dto.setId(movie.getId());
+                    dto.setTitle(movie.getTitle());
+                    dto.setDescription(movie.getDescription());
+                    dto.setFilePath(movie.getFilePath()); // важно
+                    // moodTag не знаем – оставляем null
+                    dto.setGenreIds(
+                            movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList())
+                    );
+                    dto.setActorIds(
+                            movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
+                    );
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
     public MovieDto getMovieById(Long id) {
         return movieRepository.findById(id)
-                .map(movie -> new MovieDto(
-                        movie.getId(),
-                        movie.getTitle(),
-                        movie.getDescription(),
-                        null,
-                        movie.getFilePath(),
-                        movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList()),
-                        movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
-                ))
+                .map(movie -> {
+                    MovieDto dto = new MovieDto();
+                    dto.setId(movie.getId());
+                    dto.setTitle(movie.getTitle());
+                    dto.setDescription(movie.getDescription());
+                    dto.setFilePath(movie.getFilePath()); // важно
+                    dto.setGenreIds(
+                            movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList())
+                    );
+                    dto.setActorIds(
+                            movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
+                    );
+                    return dto;
+                })
                 .orElse(null);
     }
 
