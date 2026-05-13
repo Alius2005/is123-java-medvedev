@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сериалы — CinemaHome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Все сериалы</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/movies">Фильмы</a>
+            <a href="/genres">Жанры</a>
+            <a href="/actors">Актёры</a>
+        </nav>
+    </header>
+    <main class="grid">
+        <div class="movie-card" th:each="s : ${seriesList}">
+            <h3 th:text="${s.title}">Название сериала</h3>
+            <p th:text="${s.description}">Описание</p>
+            <!-- при желании сюда можно добавить ссылку на detail-страницу сериала -->
+        </div>
+    </main>
+</div>
+</body>
+</html>

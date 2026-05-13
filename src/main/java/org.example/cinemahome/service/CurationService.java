@@ -26,13 +26,14 @@ public class CurationService {
                         movie.getTitle(),
                         movie.getDescription(),
                         moodAnalyzer.analyzeMood(),
+                        movie.getFilePath(),
                         movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList()),
                         movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
 
         if (movies.isEmpty()) {
-            return new MovieDto(null, "No movies yet", "Add something to the catalog", "Bored", List.of(), List.of());
+            return new MovieDto(null, "No movies yet", "Add something to the catalog", "Bored", null, List.of(), List.of());
         }
 
         return movies.get(new Random().nextInt(movies.size()));

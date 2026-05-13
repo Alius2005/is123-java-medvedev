@@ -12,6 +12,7 @@
         <h1>CinemaHome</h1>
         <nav>
             <a href="/movies">Фильмы</a>
+            <a href="/series">Сериалы</a>
             <a href="/genres">Жанры</a>
             <a href="/actors">Актёры</a>
             <a href="/login" class="btn-login">Войти</a>
@@ -31,7 +32,32 @@
             <h2>Фильмов пока нет</h2>
             <p>Зайдите в <a href="/admin/movies">панель админа</a> и добавьте что-нибудь!</p>
         </div>
+
+        <!-- НОВЫЙ БЛОК: выбор что добавить -->
+        <div style="margin-top: 2rem;">
+            <form id="add-content-form">
+                <label for="addType">Добавить:</label>
+                <select id="addType" name="type">
+                    <option value="movie">Фильм</option>
+                    <option value="series">Сериал</option>
+                </select>
+                <button type="button" class="btn-primary" onclick="goToAddPage()">Перейти</button>
+            </form>
+            <p style="color:#777; font-size:0.9rem; margin-top:0.5rem;">
+                Для доступа нужно войти как модератор или админ.
+            </p>
+        </div>
     </main>
 </div>
+<script>
+    function goToAddPage() {
+        const type = document.getElementById('addType').value;
+        if (type === 'movie') {
+            window.location.href = '/admin/movies';
+        } else if (type === 'series') {
+            window.location.href = '/admin/series';
+        }
+    }
+</script>
 </body>
 </html>

@@ -25,6 +25,7 @@ public class MovieService {
                         movie.getTitle(),
                         movie.getDescription(),
                         null,
+                        movie.getFilePath(),
                         movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList()),
                         movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
                 ))
@@ -38,6 +39,7 @@ public class MovieService {
                         movie.getTitle(),
                         movie.getDescription(),
                         null,
+                        movie.getFilePath(),
                         movie.getGenres().stream().map(g -> g.getId()).collect(Collectors.toList()),
                         movie.getActors().stream().map(a -> a.getId()).collect(Collectors.toList())
                 ))
@@ -48,15 +50,16 @@ public class MovieService {
         Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
         movie.setDescription(movieDto.getDescription());
+        movie.setFilePath(movieDto.getFilePath());
 
         if (movieDto.getGenreIds() != null) {
-            movie.getGenres().addAll(
+            movie.setGenres(
                     genreRepository.findAllById(movieDto.getGenreIds())
             );
         }
 
         if (movieDto.getActorIds() != null) {
-            movie.getActors().addAll(
+            movie.setActors(
                     actorRepository.findAllById(movieDto.getActorIds())
             );
         }
