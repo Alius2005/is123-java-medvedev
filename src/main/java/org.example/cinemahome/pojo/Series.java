@@ -59,4 +59,25 @@ public class Series {
 
     public String getFilePath() { return filePath; }
     public void setFilePath(String filePath) { this.filePath = filePath; }
+
+    public String getCoverPath() { return coverPath; }
+    public void setCoverPath(String coverPath) { this.coverPath = coverPath; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public Integer getSeasonsCount() { return seasonsCount; }
+    public void setSeasonsCount(Integer seasonsCount) { this.seasonsCount = seasonsCount; }
+
+    public Integer getEpisodesCount() { return episodesCount; }
+    public void setEpisodesCount(Integer episodesCount) { this.episodesCount = episodesCount; }
+
+    public Boolean getIsWatched() { return isWatched; }
+    public void setIsWatched(Boolean isWatched) { this.isWatched = isWatched; }
+
+    public Director getDirector() { return director; }
+    public void setDirector(Director director) { this.director = director; }
+
+    public List<Season> getSeasons() { return seasons; }
+    public void setSeasons(List<Season> seasons) { this.seasons = seasons; }
 }

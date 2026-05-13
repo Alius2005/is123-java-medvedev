@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Смотрим: ' + ${episode.title}">Сериал — Плеер</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 th:text="${episode.title}">Эпизод</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/series">К списку сериалов</a>
+        </nav>
+    </header>
+    <main>
+        <p th:text="'Путь к файлу: /media/' + ${episode.filePath}"></p>
+
+        <video width="800" controls>
+            <source th:src="@{'/media/' + ${episode.filePath}}" type="video/mp4">
+            Ваш браузер не поддерживает воспроизведение видео.
+        </video>
+
+        <div style="margin-top: 1rem;">
+            <a th:if="${nextEpisode != null}"
+               th:href="@{/player/series/{id}(id=${nextEpisode.id})}"
+               class="btn-primary">
+                ▶ Следующая серия
+            </a>
+            <span th:if="${nextEpisode == null}" style="color:#777;">
+                Это последняя серия сезона.
+            </span>
+        </div>
+    </main>
+</div>
+</body>
+</html>

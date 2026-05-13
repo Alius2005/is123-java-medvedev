@@ -20,7 +20,7 @@
         <div class="movie-card" th:each="s : ${seriesList}">
             <h3 th:text="${s.title}">Название сериала</h3>
             <p th:text="${s.description}">Описание</p>
-            <!-- при желании сюда можно добавить ссылку на detail-страницу сериала -->
+            <a th:href="@{/series/{id}/watch(id=${s.id})}" class="btn-primary">▶ Смотреть</a>
         </div>
     </main>
 </div>

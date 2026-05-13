@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Серии: ' + ${series.title}">Серии</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 th:text="${series.title}">Сериал</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/series">Все сериалы</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Выберите серию</h2>
+
+        <div th:if="${#lists.isEmpty(episodes)}">
+            <p>Для этого сериала пока нет серий.</p>
+        </div>
+
+        <ul th:if="${!#lists.isEmpty(episodes)}">
+            <li th:each="e : ${episodes}">
+                <span th:text="${e.episodeNumber} + ' серия — ' + ${e.title}">1 серия</span>
+                <a th:href="@{/player/series/{id}(id=${e.id})}" class="btn-primary" style="margin-left:1rem;">
+                    ▶ Смотреть
+                </a>
+            </li>
+        </ul>
+    </main>
+</div>
+</body>
+</html>

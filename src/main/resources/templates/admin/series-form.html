@@ -24,8 +24,14 @@
                 <input name="title" placeholder="Название сериала" required>
                 <textarea name="description" placeholder="Описание" rows="4"></textarea>
 
-                <!-- путь к файлу (папке/плейлисту) сериала -->
-                <input name="filePath" placeholder="Путь к файлам сериала, напр. /home/video/series" required>
+                <!-- корневая папка, напр. жуки -->
+                <input name="folder" placeholder="home/student/videos/ваш сериал" required>
+
+                <!-- номер сезона -->
+                <input name="seasonNumber" type="number" min="1" placeholder="Номер сезона, напр. 4" required>
+
+                <!-- КОЛИЧЕСТВО СЕРИЙ -->
+                <input name="episodesCount" type="number" min="1" placeholder="Количество серий, напр. 10" required>
 
                 <button type="submit" class="btn-primary">Сохранить</button>
             </form>
