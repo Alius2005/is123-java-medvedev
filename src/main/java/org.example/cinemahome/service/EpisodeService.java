@@ -40,11 +40,4 @@ public class EpisodeService {
                 e.getSeason().getId()
         );
     }
-
-    public EpisodeDto getFirstEpisodeOfSeries(Long seriesId) {
-        return episodeRepository
-                .findFirstBySeason_Series_IdOrderByEpisodeNumberAsc(seriesId)
-                .map(this::toDto)
-                .orElse(null);
-    }
 }
