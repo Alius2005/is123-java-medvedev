@@ -1,122 +1,153 @@
-# 🎬 CinemaHome – Онлайн/офлайн кинотеатр  
+# 🎬 CinemaHome – домашний онлайн/офлайн кинотеатр
 
-## 1️⃣ Общее описание  
+## 1. Общее описание
 
-**CinemaHome** – это простое веб‑приложение, которое позволяет просматривать каталог фильмов, искать их по названию/актеру/жанру, а также «смотреть» фильмы как онлайн‑стрим (ссылка на файл) и как офлайн‑копию (скачать).
+**CinemaHome** – это учебное веб‑приложение на Spring Boot, которое позволяет:
 
-* Приложение развёртывается в **localhost** (порт `8080`).  
-* Данные о фильмах, жанрах, актёрах хранятся в **Firebird**. Если Firebird не установлен, приложение автоматически переключается на **JSON‑файл** (`data/store.json`).  
-* Всё написано на **Java 21**, управляется сборщиком **Gradle**, использует **Spring Boot 3.4**.  
+- просматривать каталог фильмов и сериалов;
+- смотреть детальную страницу фильма/сериала;
+- воспроизводить видеофайлы через встроенный HTML5‑плеер;
+- работать либо с реальной БД **Firebird**, либо с хранилищем в **JSON‑файлах** (переключается пользователем);
+- регистрироваться и входить в систему, использовать роли **ADMIN** и **moderator** для управления контентом.
 
----  
+Основные моменты:
 
-## 2️⃣ Технологический стек  
+- Приложение запускается на `http://localhost:8080`.
+- При старте автоматически создаются пользователи:
+    - `admin` / `admin` (роль `ADMIN`)
+    - `moderator` / `moderator` (роль `moderator`)
+- Для хранения данных поддерживаются два режима:
+    - **DB** – Firebird + JPA/Hibernate;
+    - **JSON** – чтение/запись в файлы `*.json` в каталоге `/home/student/cinema-json/`.
+- Язык — **Java 21**, сборщик — **Gradle 8.5**, фреймворк — **Spring Boot 3.4**.
+- UI построен на **Thymeleaf + HTML + CSS** (минималистичная собственная верстка).
 
-| Категория | Технология                                                                      | Зачем |
-|-----------|---------------------------------------------------------------------------------|------|
-| **Язык** | Java 21                                                                         | Современный LTS, поддержка Record, sealed‑классов |
-| **Сборка** | Gradle (plugins: `org.springframework.boot`, `io.spring.dependency-management`) | Автоматическое управление зависимостями |
-| **Web‑фреймворк** | Spring Boot 3.4                                                                 | Встроенный Tomcat, автоконфигурация |
-| **REST** | Spring Web MVC                                                                  | Контроллеры, JSON‑ответы |
-| **База данных** | Firebird 3 (JDBC‑драйвер Jaybird 3.0.10) + Flyway                               | Надёжное реляционное хранилище |
-| **Fallback‑Хранилище** | JSON (Jackson)                                                                  | Позволяет работать без установленного Firebird |
-| **JPA** | Spring Data JPA + Hibernate                                                     | DAO‑слой, репозитории |
-| **Безопасность** | Spring Security (basic auth)                                                    | Авторизация пользователей |
-| **Тесты** | JUnit 5, Mockito, Spring Boot Test                                              | Юнит‑ и интеграционные тесты |
-| **Утилиты** | Lombok (optional)                                                               | Сокращение шаблонного кода |
-| **Frontend** | HTML5 + CSS (Bootstrap 5)                                                       | Публичный UI (`src/main/resources/static/index.html`) |
-| **CI** | GitHub Actions (optional)                                                       | Автоматический билд/тесты |
+---
 
----  
+## 2. Технологический стек
 
-## 3️⃣ Функциональные возможности  
+| Категория          | Технология                                              | Назначение                                   |
+|--------------------|---------------------------------------------------------|----------------------------------------------|
+| Язык               | Java 21                                                | Современный LTS, новая платформа             |
+| Сборка             | Gradle, Spring Boot plugin, Dependency Management      | Сборка и управление зависимостями            |
+| Web‑фреймворк      | Spring Boot 3.4, Spring MVC                           | Контроллеры, маршруты, обработка запросов    |
+| Шаблоны            | Thymeleaf                                              | Серверный рендеринг HTML‑страниц             |
+| БД                 | Firebird, драйвер Jaybird                             | Основное реляционное хранилище               |
+| ORM/JPA            | Spring Data JPA, Hibernate                            | Работа с сущностями и репозиториями          |
+| Альтернативное хранилище | JSON‑файлы + Jackson Databind                       | Работа без установленной БД                  |
+| Безопасность       | Spring Security, BCryptPasswordEncoder                | Регистрация, логин, роли и авторизация       |
+| Документация API   | springdoc‑openapi‑starter‑webmvc‑ui                   | Swagger UI по пути `/swagger-ui.html`        |
+| Утилиты            | Lombok (частично), Random‑бизнес‑логика (MoodAnalyzer) | Сокращение шаблонного кода, «настроение»     |
+| CI                 | GitHub Actions (Gradle workflow)                      | Автоматический билд проекта                  |
 
-| № | Функция | Описание |
-|---|---------|----------|
-| 1 | Регистрация/аутентификация | Пользователь может создать аккаунт, войти, выйти (Spring Security). |
-| 2 | Просмотр каталога | Список всех фильмов с постером, годом выпуска, жанрами. |
-| 3 | Поиск/фильтрация | По названию, году, жанру, имени актёра. |
-| 4 | Детальная страница фильма | Описание, список актёров, ролей, жанры, кнопки **Play** (онлайн) и **Download** (офлайн). |
-| 5 | Управление контентом (admin) | CRUD‑операции над фильмами, жанрами, актёрами. |
-| 6 | Ценообразование (Strategy) | Разные стратегии ценообразования: обычная, со скидкой, премиум. |
-| 7 | Уведомления о новых релизах (Observer) | При добавлении нового фильма пользователи могут получать email‑уведомление (имитация). |
-| 8 | Фабрика репозиториев (Factory) | В зависимости от наличия Firebird создаётся `JpaRepository` или `InMemoryRepository` (JSON). |
-| 9 | API‑документация | OpenAPI (Swagger) доступен по адресу `/swagger-ui.html`. |
+---
 
----  
+## 3. Функциональность
 
-## 4️⃣ Архитектура проекта  
+### Пользователи и безопасность
 
-```mermaid
-graph LR
-    subgraph Presentation
-        UI[HTML/Bootstrap]
-        REST[REST‑контроллеры]
-    end
-    subgraph Service
-        UserSrv[UserService] 
-        MovieSrv[MovieService] 
-        Pricing[PricingStrategy]
-        Notifier[ReleaseNotifier]
-    end
-    subgraph Data
-        RepoFactory[RepositoryFactory] 
-        JPA[JpaRepository] 
-        JsonRepo[InMemoryRepository] 
-    end
-    subgraph DB
-        Firebird[(Firebird DB)] 
-        JSON[(JSON store)] 
-    end
+- Регистрация нового пользователя: форма `/register`, обработчик `POST /register`.
+- Вход в систему: страница `/login` с формой Spring Security.
+- Роли:
+    - `ADMIN` — создаётся автоматически;
+    - `moderator` — создаётся автоматически;
+    - `user` — назначается по умолчанию при регистрации.
+- Доступ:
+    - Публично: `/`, `/login`, `/register`, просмотр списков фильмов/сериалов, плеер `/player/**`.
+    - Управление контентом: `/admin/**`, часть запросов `/movies/**` и `/api/admin/**` — только для `MODERATOR` и `ADMIN`.
 
-    UI --> REST
-    REST --> UserSrv & MovieSrv
-    MovieSrv --> Pricing
-    MovieSrv --> Notifier
-    UserSrv --> RepoFactory
-    MovieSrv --> RepoFactory
-    RepoFactory --> JPA & JsonRepo
-    JPA --> Firebird
-    JsonRepo --> JSON
-```
+### Контент и навигация
 
-* **Controller** – слой презентации, принимает HTTP‑запросы, возвращает DTO.  
-* **Service** – бизнес‑логика, использует стратегии и наблюдателей.  
-* **Repository** – абстракция доступа к данным, реализована двумя способами (JPA + JSON).  
-* **Config** – Spring‑конфиги (WebSecurity, DataSource).  
+- Главная страница `/`:
+    - показывает «фильм дня», случайно выбранный из каталога (`CurationService`);
+    - если фильмов нет — выводит приглашение зайти в панель админа;
+    - блок выбора, что добавить: фильм или сериал (переходы в `/admin/movies` или `/admin/series`).
 
----  
+- Фильмы:
+    - Список: `GET /movies` — шаблон `movie/list.html`;
+    - Детальная страница: `GET /movies/{id}` — шаблон `movie/detail.html`;
+    - Плеер: `GET /player/movie/{id}` — шаблон `player/movie-player.html`, HTML5 `<video>` с путём `/media/...`.
 
-## 5️⃣ Паттерны, интерфейсы и их реализации  
+- Сериалы:
+    - Список: `GET /series` — шаблон `series/list.html`;
+    - Список серий первого сезона: `GET /series/{id}/episodes` — шаблон `series/episodes.html`;
+    - Плеер эпизода: `GET /player/series/{episodeId}` — шаблон `player/series-player.html`, с кнопкой «Следующая серия».
 
-| Паттерн | Интерфейс | Реализации (по 3) |
-|--------|-----------|-------------------|
-| **Factory** | `RepositoryFactory` (интерфейс) | `JpaRepositoryFactory` (создаёт JPA‑репозитории), `JsonRepositoryFactory` (создаёт репозитории‑обёртки над JSON), `MockRepositoryFactory` (для тестов) |
-| **Strategy** | `PricingStrategy` | `BasePricingStrategy` (базовая цена), `DiscountPricingStrategy` (скидка %), `PremiumPricingStrategy` (повышенная цена для новых релизов) |
-| **Observer** | `ReleaseNotifier` | `EmailNotifier` (отправка письма), `SmsNotifier` (заглушка для SMS), `InAppNotifier` (внутри приложения – хранит события в памяти) |
+- Справочники:
+    - Жанры: `GET /genres` — список жанров;
+    - Актёры: `GET /actors` — список актёров.
 
----  
+### Админ‑панель
 
-## 6️⃣ Подготовка окружения  
+Доступна пользователям с ролью `MODERATOR` или `ADMIN`.
 
-### 6.1 Требования  
+- Фильмы:
+    - `GET /admin/movies` — форма добавления фильма + список;
+    - `POST /admin/movies` — создание фильма (title, description, moodTag, filePath).
 
-| Требование | Версия/описание                         |
-|-----------|-----------------------------------------|
-| Java | JDK 21 (или выше)                       |
-| Gradle | 8.5 (wrapper уже включён)               |
-| Firebird | 3.0+ (опционально)                      |
-| (Опционально) Docker | Для развёртывания Firebird в контейнере |
+- Сериалы:
+    - `GET /admin/series` — форма добавления сериала;
+    - `POST /admin/series` — создаёт сериал, сезон и заданное количество эпизодов (по шаблону имени файлов).
 
+### Переключение режима хранения (DB / JSON)
 
+- Страница выбора: `GET /mode` — шаблон `mode/select.html`.
+- Установка режима: `POST /mode` с параметром `mode=DB` или `mode=JSON`.
+- Выбранный режим сохраняется в `HttpSession` через `DataModeService` и влияет на то,
+  какой адаптер используется в сервисах (`db*Port` или `json*Port`).
 
+---
 
+## 4. Архитектура проекта
 
+Проект построен по слоистой архитектуре с разделением на контроллеры, сервисы, порты/адаптеры и конфигурацию.
 
+- **Controller** – слой презентации, принимает HTTP‑запросы и подготавливает модель для шаблонов Thymeleaf  
+  (`HomeController`, `MovieController`, `SeriesController`, `AdminController`, `AuthController`, и др.).
 
+- **Service** – слой бизнес‑логики, агрегирует доступ к данным через порты, использует вспомогательные компоненты  
+  (например, `CurationService`, `MovieService`, `SeriesService`, `UserService`, `ReleaseNotifierService`).
 
+- **Port / Adapter** – абстракция доступа к данным и её реализации:
+    - Порты: `MoviePort`, `SeriesPort`, `ActorPort`, `GenrePort`, `EpisodePort`, `SeasonPort`, `UserPort`.
+    - Адаптеры для БД (JPA): классы `Db*Adapter` работают через Spring Data JPA (`MovieRepository`, `UserRepository` и т.д.).
+    - Адаптеры для JSON: классы `Json*Adapter` читают/пишут данные в файлы `*.json` с помощью Jackson.
+    - Выбор режима (`DB` или `JSON`) делается в `*Service` через `DataModeService`.
 
+- **Repository** – Spring Data JPA‑репозитории, инкапсулирующие работу с БД  
+  (`MovieRepository`, `SeriesRepository`, `UserRepository`, и др.).
 
+- **Config** – конфигурационные классы Spring:
+    - `SecurityConfig` (Spring Security),
+    - `DbConfig` (DataSource для Firebird),
+    - `WebConfig` (раздача `/media/**`),
+    - `OpenApiConfig` (Swagger/OpenAPI),
+    - `AdminInitializer` (создание admin/moderator),
+    - `DataModeService` (режим хранения DB/JSON).
 
+---
 
+## 5. Паттерны проектирования в проекте
 
+| Паттерн                    | Роль/идея                                                                 | Интерфейсы / ключевые классы                                                                                                      | Конкретные реализации / детали                                                                                                                                           |
+|----------------------------|---------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Port–Adapter (Hexagonal)** | Отделить бизнес‑логику от деталей хранения и дать возможность легко переключать БД/JSON | Порты: `MoviePort`, `SeriesPort`, `ActorPort`, `GenrePort`, `EpisodePort`, `SeasonPort`, `UserPort`                              | **DB‑адаптеры:** `DbMovieAdapter`, `DbSeriesAdapter`, `DbActorAdapter`, `DbGenreAdapter`, `DbEpisodeAdapter`, `DbSeasonAdapter`, `DbUserAdapter`;<br>**JSON‑адаптеры:** `JsonMovieAdapter`, `JsonSeriesAdapter`, `JsonActorAdapter`, `JsonGenreAdapter`, `JsonEpisodeAdapter`, `JsonSeasonAdapter`, `JsonUserAdapter` |
+| **Strategy** (выбор источника данных) | Переключение между разными «стратегиями» хранения: БД vs JSON                        | `DataMode` (enum: `DB`, `JSON`), `DataModeService`                                                                                | В сервисах (`MovieService`, `SeriesService`, `ActorService`, `GenreService`, `EpisodeService`, `UserService`) метод `currentPort()` выбирает либо `db*Port`, либо `json*Port` в зависимости от `DataMode`                                           |
+| **Observer**               | Несколько независимых подписчиков реагируют на событие (новый релиз и т.п.) | Интерфейс `ReleaseNotifier`, сервис `ReleaseNotifierService`                                                                      | Наблюдатели: `EmailNotifier` (основной, `@Primary`), `InAppNotifier`, `MoodNotifier` (использует `MoodAnalyzer`); `ReleaseNotifierService` обходит список `ReleaseNotifier` и вызывает `sendNotification()` у каждого                               |
+| **Dependency Injection / IoC** | Ослабление связности, внедрение зависимостей через контейнер Spring           | Аннотации Spring: `@Autowired`, `@Qualifier`, `@Component`, `@Service`, `@Repository`, `@Configuration`                            | Все контроллеры, сервисы, адаптеры и конфиги получают зависимости из контекста Spring, нет ручного создания объектов `new` в бизнес‑коде                                                                     |
+| **Layered Architecture**   | Разделение приложения на логические слои                                  | Слои: Controller → Service → Port/Adapter → Repository / Storage                                                                  | **Controller:** web‑слой (обрабатывает HTTP и подготавливает модель для Thymeleaf); **Service:** бизнес‑логика; **Port/Adapter:** доступ к данным; **Repository:** JPA‑репозитории и/или JSON‑хранилище                                            |
+| **Template Method (через Spring Data)** | Общий шаблон CRUD‑операций в базе с возможностью дописывать специфичные методы | `JpaRepository<T, ID>` и наследники: `MovieRepository`, `SeriesRepository`, `SeasonRepository`, `EpisodeRepository`, `ActorRepository`, `GenreRepository`, `UserRepository` | Spring Data JPA реализует стандартные методы (`save`, `findAll`, `findById`, и т.д.), а конкретные репозитории описывают только интерфейс и при необходимости добавляют свои query‑методы                                                       |
+---
+
+## 6. Подготовка окружения
+
+### 6.1 Требования
+
+| Требование          | Версия/описание                                    |
+|---------------------|----------------------------------------------------|
+| Java                | JDK 21 (или выше)                                  |
+| Gradle              | 8.5 (Gradle Wrapper уже включён в репозиторий)    |
+| Firebird (опционально) | 3.0+ (для режима хранения в БД)                    |
+| ОС                  | Linux/Unix (в коде используются пути `/home/student/...`) |
+
+Firebird и Docker не являются обязательными: можно работать в режиме JSON‑файлов, выбрав его на странице `/mode`.
