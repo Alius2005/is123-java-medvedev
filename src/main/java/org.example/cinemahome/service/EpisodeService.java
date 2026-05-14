@@ -1,43 +1,44 @@
 package org.example.cinemahome.service;
 
+import org.example.cinemahome.config.DataMode;
+import org.example.cinemahome.config.DataModeService;
 import org.example.cinemahome.dto.EpisodeDto;
-import org.example.cinemahome.pojo.Episode;
-import org.example.cinemahome.repository.EpisodeRepository;
+import org.example.cinemahome.port.EpisodePort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EpisodeService {
 
+    @Autowired @Qualifier("dbEpisodePort")
+    private EpisodePort dbEpisodePort;
+
+    @Autowired @Qualifier("jsonEpisodePort")
+    private EpisodePort jsonEpisodePort;
+
     @Autowired
-    private EpisodeRepository episodeRepository;
+    private DataModeService dataModeService;
+
+    private EpisodePort currentPort() {
+        return (dataModeService.getMode() == DataMode.JSON) ? jsonEpisodePort : dbEpisodePort;
+    }
 
     public EpisodeDto getEpisodeById(Long id) {
-        return episodeRepository.findById(id)
-                .map(this::toDto)
-                .orElse(null);
+        return currentPort().findById(id);
     }
 
     public EpisodeDto getNextEpisode(EpisodeDto current) {
-        if (current == null || current.getSeasonId() == null || current.getEpisodeNumber() == null) {
-            return null;
-        }
-        return episodeRepository
-                .findBySeason_IdAndEpisodeNumber(
-                        current.getSeasonId(),
-                        current.getEpisodeNumber() + 1
-                )
-                .map(this::toDto)
-                .orElse(null);
+        return currentPort().findNext(current);
     }
 
-    private EpisodeDto toDto(Episode e) {
-        return new EpisodeDto(
-                e.getId(),
-                e.getTitle(),
-                e.getFilePath(),
-                e.getEpisodeNumber(),
-                e.getSeason().getId()
-        );
+    public EpisodeDto getFirstEpisodeOfSeries(Long seriesId) {
+        return currentPort().findFirstOfSeries(seriesId);
+    }
+
+    public List<EpisodeDto> getEpisodesBySeasonId(Long seasonId) {
+        return currentPort().findBySeasonId(seasonId);
     }
 }
