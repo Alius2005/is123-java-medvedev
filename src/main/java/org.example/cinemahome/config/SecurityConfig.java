@@ -14,10 +14,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/", "/register", "/login", "/css/**", "/js/**", "/api/public/**", "/player/**").permitAll()
-                    .requestMatchers("/movies/**", "/films/**", "/api/movies/**").hasAnyRole("MODERATOR", "ADMIN")
-                    .requestMatchers("/admin/**", "/users/**", "/api/admin/**").hasAnyRole("MODERATOR", "ADMIN")
-                    .anyRequest().authenticated()
+                        .requestMatchers("/", "/register", "/login", "/css/**", "/js/**", "/api/public/**", "/player/**", "/mode").permitAll()
+                        .requestMatchers("/movies/**", "/films/**", "/api/movies/**").hasAnyRole("MODERATOR", "ADMIN")
+                        .requestMatchers("/admin/**", "/users/**", "/api/admin/**").hasAnyRole("MODERATOR", "ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -25,8 +25,13 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());
+
+        // На время можно отключить CSRF, чтобы не ловить 403 на POST /mode
+        http.csrf(csrf -> csrf.disable());
+
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

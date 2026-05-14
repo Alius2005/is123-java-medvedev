@@ -22,7 +22,7 @@
             <form th:action="@{/admin/movies}" method="post" class="form-card">
                 <input name="title" placeholder="Название" required>
                 <textarea name="description" placeholder="Описание" rows="4"></textarea>
-                <input name="filePath" placeholder="Путь к файлу на диске, напр. /home/video/movie.mp4" required>
+                <input name="filePath" placeholder="/home/student/videos/ваше кино.mp4" required>
                 <input name="moodTag" placeholder="Настроение (Romantic, Calm…)" required>
                 <button type="submit" class="btn-primary">Сохранить</button>
             </form>

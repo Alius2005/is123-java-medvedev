@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор режима хранения</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container narrow">
+    <h1>Выберите источник данных</h1>
+    <form method="post" action="/mode" class="form-card">
+        <label>
+            <input type="radio" name="mode" value="DB" checked>
+            База данных (Firebird)
+        </label>
+        <label>
+            <input type="radio" name="mode" value="JSON">
+            JSON файлы
+        </label>
+        <button type="submit" class="btn-primary">Продолжить</button>
+    </form>
+</div>
+</body>
+</html>
