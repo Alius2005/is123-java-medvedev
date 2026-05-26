@@ -13,7 +13,7 @@ import java.util.List;
 @Component("jsonMoviePort")
 public class JsonMovieAdapter implements MoviePort {
 
-    private static final String MOVIES_JSON_PATH = "/home/student/cinema-json/movies.json";
+    private static String MOVIES_JSON_PATH = "/home/student/cinema-json/movies.json";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
