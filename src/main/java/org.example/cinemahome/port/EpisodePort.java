@@ -7,7 +7,7 @@ import java.util.List;
 public interface EpisodePort {
     EpisodeDto findById(Long id);
     EpisodeDto findNext(EpisodeDto current);
+    EpisodeDto findPrevious(EpisodeDto current);
     EpisodeDto findFirstOfSeries(Long seriesId);
-
     List<EpisodeDto> findBySeasonId(Long seasonId);
 }

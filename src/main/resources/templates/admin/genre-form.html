@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Админ — Добавить фильм</title>
+    <title>Админ — Жанры</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -14,22 +13,22 @@
             <a href="/">Главная</a>
             <a href="/admin/movies">Фильмы</a>
             <a href="/admin/series">Сериалы</a>
-            <a href="/admin/genres">Жанры</a>
             <a href="/admin/actors">Актеры</a>
             <a href="/admin/directors">Режиссеры</a>
         </nav>
     </header>
-
     <main>
         <div sec:authorize="hasRole('MODERATOR') or hasRole('ADMIN')">
-            <h2>Добавить фильм</h2>
-            <form th:action="@{/admin/movies}" method="post" class="form-card">
-                <input name="title" placeholder="Название" required>
+            <h2>Добавить жанр</h2>
+            <form th:action="@{/admin/genres}" method="post" class="form-card">
+                <input name="name" placeholder="Название жанра" required>
                 <textarea name="description" placeholder="Описание" rows="4"></textarea>
-                <input name="filePath" placeholder="/home/student/videos/ваше кино.mp4" required>
-                <input name="moodTag" placeholder="Настроение (Romantic, Calm…)" required>
                 <button type="submit" class="btn-primary">Сохранить</button>
             </form>
+            <h3 style="margin-top: 2rem;">Существующие жанры</h3>
+            <ul>
+                <li th:each="g : ${genres}" th:text="${g.name}">Жанр</li>
+            </ul>
         </div>
     </main>
 </div>

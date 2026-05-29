@@ -85,4 +85,17 @@ public class JsonEpisodeAdapter implements EpisodePort {
         result.sort(Comparator.comparingInt(EpisodeDto::getEpisodeNumber));
         return result;
     }
+
+    @Override
+    public EpisodeDto findPrevious(EpisodeDto current) {
+        if (current == null || current.getSeasonId() == null || current.getEpisodeNumber() == null || current.getEpisodeNumber() <= 1) {
+            return null;
+        }
+        return readAllInternal().stream()
+                .filter(e -> current.getSeasonId().equals(e.getSeasonId())
+                        && (current.getEpisodeNumber() - 1) == e.getEpisodeNumber())
+                .findFirst()
+                .map(this::toDto)
+                .orElse(null);
+    }
 }

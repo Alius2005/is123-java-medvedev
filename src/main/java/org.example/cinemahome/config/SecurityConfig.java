@@ -11,24 +11,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/register", "/login", "/css/**", "/js/**", "/api/public/**", "/player/**", "/mode").permitAll()
-                        .requestMatchers("/movies/**", "/films/**", "/api/movies/**").hasAnyRole("MODERATOR", "ADMIN")
+                        .requestMatchers("/movies/**","/", "/register", "/login", "/css/**", "/js/**", "/api/public/**", "/player/**", "/mode", "/access-denied").permitAll()
+                        .requestMatchers("/films/**", "/api/movies/**").hasAnyRole("MODERATOR", "ADMIN")
                         .requestMatchers("/admin/**", "/users/**", "/api/admin/**").hasAnyRole("MODERATOR", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
+                        .failureUrl("/login?error=true")
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll());
+                .logout(logout -> logout.permitAll())
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/access-denied")
+                );
 
-        // На время можно отключить CSRF, чтобы не ловить 403 на POST /mode
         http.csrf(csrf -> csrf.disable());
-
         return http.build();
     }
 

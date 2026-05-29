@@ -38,6 +38,10 @@ public class EpisodeService {
         return currentPort().findFirstOfSeries(seriesId);
     }
 
+    public EpisodeDto getPreviousEpisode(EpisodeDto current) {
+        return currentPort().findPrevious(current);
+    }
+
     public List<EpisodeDto> getEpisodesBySeasonId(Long seasonId) {
         return currentPort().findBySeasonId(seasonId);
     }

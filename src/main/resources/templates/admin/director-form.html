@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ — Режиссеры</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container narrow">
+    <header>
+        <h1>Панель админа</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/admin/movies">Фильмы</a>
+            <a href="/admin/series">Сериалы</a>
+            <a href="/admin/genres">Жанры</a>
+            <a href="/admin/actors">Актеры</a>
+        </nav>
+    </header>
+    <main>
+        <div sec:authorize="hasRole('MODERATOR') or hasRole('ADMIN')">
+            <h2>Добавить режиссера</h2>
+            <form th:action="@{/admin/directors}" method="post" class="form-card">
+                <input name="name" placeholder="Имя режиссера" required>
+                <button type="submit" class="btn-primary">Сохранить</button>
+            </form>
+            <h3 style="margin-top: 2rem;">Существующие режиссеры</h3>
+            <ul>
+                <li th:each="d : ${directors}" th:text="${d.name}">Режиссер</li>
+            </ul>
+        </div>
+    </main>
+</div>
+</body>
+</html>

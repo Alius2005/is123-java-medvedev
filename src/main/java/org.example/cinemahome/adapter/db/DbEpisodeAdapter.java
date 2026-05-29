@@ -61,4 +61,18 @@ public class DbEpisodeAdapter implements EpisodePort {
                 .map(this::toDto)
                 .toList();
     }
+
+    @Override
+    public EpisodeDto findPrevious(EpisodeDto current) {
+        if (current == null || current.getSeasonId() == null || current.getEpisodeNumber() == null || current.getEpisodeNumber() <= 1) {
+            return null;
+        }
+        return episodeRepository
+                .findBySeason_IdAndEpisodeNumber(
+                        current.getSeasonId(),
+                        current.getEpisodeNumber() - 1
+                )
+                .map(this::toDto)
+                .orElse(null);
+    }
 }

@@ -21,10 +21,10 @@
             <p>Для этого сериала пока нет серий.</p>
         </div>
 
-        <ul th:if="${!#lists.isEmpty(episodes)}">
-            <li th:each="e : ${episodes}">
-                <span th:text="${e.episodeNumber} + ' серия — ' + ${e.title}">1 серия</span>
-                <a th:href="@{/player/series/{id}(id=${e.id})}" class="btn-primary" style="margin-left:1rem;">
+        <ul th:if="${!#lists.isEmpty(episodes)}" style="list-style: none; padding: 0; margin: 0;">
+            <li th:each="e : ${episodes}" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e5e5e5;">
+                <span th:text="${e.episodeNumber} + ' серия — ' + ${e.title}" style="flex: 1; margin-right: 1rem;">1 серия</span>
+                <a th:href="@{/player/series/{id}(id=${e.id})}" class="btn-primary" style="white-space: nowrap; margin-left: 1rem;">
                     ▶ Смотреть
                 </a>
             </li>

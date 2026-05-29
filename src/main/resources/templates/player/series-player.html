@@ -22,15 +22,37 @@
             Ваш браузер не поддерживает воспроизведение видео.
         </video>
 
-        <div style="margin-top: 1rem;">
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <a th:if="${prevEpisode != null}"
+               th:href="@{/player/series/{id}(id=${prevEpisode.id})}"
+               class="btn-primary" style="background: #555;">
+                ◀ Предыдущая серия
+            </a>
+            <span th:if="${prevEpisode == null}" style="color:#777; visibility: hidden; padding: .75rem 1.5rem;">
+                ◀ Предыдущая серия
+            </span>
+
             <a th:if="${nextEpisode != null}"
                th:href="@{/player/series/{id}(id=${nextEpisode.id})}"
                class="btn-primary">
-                ▶ Следующая серия
+                Следующая серия ▶
             </a>
             <span th:if="${nextEpisode == null}" style="color:#777;">
                 Это последняя серия сезона.
             </span>
+        </div>
+
+        <div style="margin-top: 2rem;">
+            <h3 style="margin-bottom: 1rem;">Все серии сезона</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <a th:each="ep : ${seasonEpisodes}"
+                   th:href="@{/player/series/{id}(id=${ep.id})}"
+                   th:text="${ep.episodeNumber}"
+                   th:classappend="${ep.id == episode.id} ? 'current-ep' : ''"
+                   class="episode-square">
+                    1
+                </a>
+            </div>
         </div>
     </main>
 </div>

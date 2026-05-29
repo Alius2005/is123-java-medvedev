@@ -33,18 +33,24 @@
             <p>Зайдите в <a href="/admin/movies">панель админа</a> и добавьте что-нибудь!</p>
         </div>
 
-        <!-- НОВЫЙ БЛОК: выбор что добавить -->
-        <div style="margin-top: 2rem;">
-            <form id="add-content-form">
-                <label for="addType">Добавить:</label>
-                <select id="addType" name="type">
+        <!-- БЛОК: выбор что добавить -->
+        <div style="margin-top: 2rem; background: var(--card); border: 1px solid #e5e5e5; padding: 1.5rem;">
+            <h3 style="margin-top: 0;">Панель управления контентом</h3>
+
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <label for="addType" style="font-weight: 500;">Добавить:</label>
+                <select id="addType" name="type" style="padding: .75rem; border: 1px solid #ccc; background: #fafafa; font: inherit; min-width: 200px;">
                     <option value="movie">Фильм</option>
                     <option value="series">Сериал</option>
+                    <option value="genre">Жанр</option>
+                    <option value="actor">Актер</option>
+                    <option value="director">Режиссер</option>
                 </select>
                 <button type="button" class="btn-primary" onclick="goToAddPage()">Перейти</button>
-            </form>
-            <p style="color:#777; font-size:0.9rem; margin-top:0.5rem;">
-                Для доступа нужно войти как модератор или админ.
+            </div>
+
+            <p style="color:#777; font-size:0.9rem; margin-top:1rem; margin-bottom: 0;">
+                Для доступа ко всем разделам нужно войти как модератор или админ.
             </p>
         </div>
     </main>
@@ -52,10 +58,24 @@
 <script>
     function goToAddPage() {
         const type = document.getElementById('addType').value;
-        if (type === 'movie') {
-            window.location.href = '/admin/movies';
-        } else if (type === 'series') {
-            window.location.href = '/admin/series';
+        switch(type) {
+            case 'movie':
+                window.location.href = '/admin/movies';
+                break;
+            case 'series':
+                window.location.href = '/admin/series';
+                break;
+            case 'genre':
+                window.location.href = '/admin/genres';
+                break;
+            case 'actor':
+                window.location.href = '/admin/actors';
+                break;
+            case 'director':
+                window.location.href = '/admin/directors';
+                break;
+            default:
+                window.location.href = '/admin/movies';
         }
     }
 </script>
