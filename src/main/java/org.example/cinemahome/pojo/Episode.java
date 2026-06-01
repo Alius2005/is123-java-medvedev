@@ -33,25 +33,4 @@ public class Episode {
     @ManyToOne
     @JoinColumn(name = "season_id", nullable = false)
     private Season season;
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Integer getEpisodeNumber() { return episodeNumber; }
-    public void setEpisodeNumber(Integer episodeNumber) { this.episodeNumber = episodeNumber; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public Integer getDuration() { return duration; }
-    public void setDuration(Integer duration) { this.duration = duration; }
-
-    public String getFilePath() { return filePath; }
-    public void setFilePath(String filePath) { this.filePath = filePath; }
-
-    public Boolean getIsWatched() { return isWatched; }
-    public void setIsWatched(Boolean isWatched) { this.isWatched = isWatched; }
-
-    public Season getSeason() { return season; }
-    public void setSeason(Season season) { this.season = season; }
 }

@@ -52,39 +52,4 @@ public class Season {
     @OneToMany(mappedBy = "season", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Episode> episodes;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Integer getSeasonNumber() { return seasonNumber; }
-    public void setSeasonNumber(Integer seasonNumber) { this.seasonNumber = seasonNumber; }
-
-    public Integer getEpisodesCount() { return episodesCount; }
-    public void setEpisodesCount(Integer episodesCount) { this.episodesCount = episodesCount; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public String getFilePath() { return filePath; }
-    public void setFilePath(String filePath) { this.filePath = filePath; }
-
-    public Integer getDuration() { return duration; }
-    public void setDuration(Integer duration) { this.duration = duration; }
-
-    public Integer getReleaseYear() { return releaseYear; }
-    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public Boolean getIsWatched() { return isWatched; }
-    public void setIsWatched(Boolean isWatched) { this.isWatched = isWatched; }
-
-    public Director getDirector() { return director; }
-    public void setDirector(Director director) { this.director = director; }
-
-    public Series getSeries() { return series; }
-    public void setSeries(Series series) { this.series = series; }
-
-    public List<Episode> getEpisodes() { return episodes; }
-    public void setEpisodes(List<Episode> episodes) { this.episodes = episodes; }
 }

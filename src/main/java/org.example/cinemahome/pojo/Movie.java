@@ -67,40 +67,4 @@ public class Movie {
         this.title = title;
         this.description = description;
     }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public String getFilePath() { return filePath; }
-    public void setFilePath(String filePath) { this.filePath = filePath; }
-
-    public String getCoverPath() { return coverPath; }
-    public void setCoverPath(String coverPath) { this.coverPath = coverPath; }
-
-    public Integer getReleaseYear() { return releaseYear; }
-    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public Integer getDuration() { return duration; }
-    public void setDuration(Integer duration) { this.duration = duration; }
-
-    public Boolean getIsWatched() { return isWatched; }
-    public void setIsWatched(Boolean isWatched) { this.isWatched = isWatched; }
-
-    public Director getDirector() { return director; }
-    public void setDirector(Director director) { this.director = director; }
-
-    public List<Genre> getGenres() { return genres; }
-    public void setGenres(List<Genre> genres) { this.genres = genres; }
-
-    public List<Actor> getActors() { return actors; }
-    public void setActors(List<Actor> actors) { this.actors = actors; }
 }
